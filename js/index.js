@@ -1,17 +1,67 @@
-let tabla = "";
 let continuar = true;
 
-while (continuar) {
-    let numero = prompt("Ingrese el numero del cual deseas realizar su tabla de multiplicar")
-    if (!isNaN(numero)) {
-        tabla += `Tabla del ${numero} \n`
-        for (i = 1; i <= 10; i++) {
-            tabla += `${numero} * ${i} = ${numero * i} \n`
+function multiplicacion(producto, cantidad){
+    let resultado = producto * cantidad
+    return resultado
+    alert (resultado)
+}
+
+
+const main = (continuar) => {
+    while (continuar) {
+        alert('Ingrese nombre cliente')
+        const nombre = ingresarCliente()
+        const producto = agregarProductos()
+        const cantidad = agregarCantidad()
+        multiplicacion()
+        mostrarImporte()
+        if (continuar) {
+            confirm(`Resumen de orden: \n Nombre Cliente: ${nombre} \n Importe: ${multiplicacion}`)
+            continuar = confirm('¿Desea agregar nuevo pedido?')
+        } else {
+            continuar = confirm('¿Desea intentarlo nuevamente?')
+        }
     }
-    alert(tabla)
-    tabla = ""
-    }else{
-        alert("Favor ingresar solo numeros")
+}
+
+const ingresarCliente = () => {
+    const nombre = parseInt(prompt('Ingresar nombre cliente:'))
+    // verifico que este bien ingresado
+    if (isNaN(nombre) && nombre !== '' && nombre !== null) {
+        return nombre
+    } else {
+        alert('Ingrese cliente de manera correcta')
+        ingresarCliente()
     }
-    continuar = confirm("Desea continuar con otro numero?")
-}    
+}
+
+const agregarProductos = () => {
+    const producto = parseFloat(prompt('Ingrese valor producto'))
+    if (!isNaN(producto) && producto !== '' && producto !== null) {
+        return producto
+    } else {
+        alert('Ingrese valor de manera correcta')
+        agregarProductos()
+    }
+}
+
+const agregarCantidad = () => {
+    const cantidad = parseFloat(prompt('Ingrese cantidad producto'))
+    if (!isNaN(cantidad) && cantidad !== '' && cantidad !== null) {
+        return cantidad
+    } else {
+        alert('Ingrese valor de manera correcta')
+        agregarCantidad()
+    }
+}
+
+function multiplicacion(producto,cantidad){
+    resultado = producto * cantidad
+    return resultado
+}
+
+function mostrarImporte(resultado){
+    alert("El importe es: "+ resultado)
+}
+
+main(continuar)
