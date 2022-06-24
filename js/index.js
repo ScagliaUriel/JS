@@ -7,7 +7,6 @@ const main = (continuar) => {
         const producto = agregarProductos()
         const cantidad = agregarCantidad()
         const resultado = multiplicacion(producto,cantidad)
-        const importe = mostrarImporte(resultado)
         if (continuar) {
             confirm(`Resumen de orden: \n Nombre Cliente: ${nombre} \n Importe: ${resultado}`)
             continuar = confirm("¿Desea agregar nuevo pedido?")
