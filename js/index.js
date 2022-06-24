@@ -1,22 +1,15 @@
 let continuar = true;
 
-function multiplicacion(producto, cantidad){
-    let resultado = producto * cantidad
-    return resultado
-    alert (resultado)
-}
-
-
 const main = (continuar) => {
     while (continuar) {
         alert("Ingrese nombre cliente")
         const nombre = ingresarCliente()
         const producto = agregarProductos()
         const cantidad = agregarCantidad()
-        multiplicacion()
-        mostrarImporte()
+        const resultado = multiplicacion(producto,cantidad)
+        const importe = mostrarImporte(resultado)
         if (continuar) {
-            confirm(`Resumen de orden: \n Nombre Cliente: (nombre) \n Importe: (mostrarImporte)`)
+            confirm(`Resumen de orden: \n Nombre Cliente: ${nombre} \n Importe: ${mostrarImporte}`)
             continuar = confirm("¿Desea agregar nuevo pedido?")
         } else {
             continuar = confirm("¿Desea intentarlo nuevamente?")
@@ -55,12 +48,12 @@ const agregarCantidad = () => {
     }
 }
 
-function multiplicacion(producto,cantidad){
+const multiplicacion = (producto,cantidad) => {
     resultado = producto * cantidad
     return resultado
 }
 
-function mostrarImporte(resultado){
+const mostrarImporte = () => {
     alert("El importe es: " + resultado)
 }
 
