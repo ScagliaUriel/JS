@@ -9,7 +9,7 @@ const main = (continuar) => {
         const resultado = multiplicacion(producto,cantidad)
         const importe = mostrarImporte(resultado)
         if (continuar) {
-            confirm(`Resumen de orden: \n Nombre Cliente: ${nombre} \n Importe: ${mostrarImporte}`)
+            confirm(`Resumen de orden: \n Nombre Cliente: ${nombre} \n Importe: ${resultado}`)
             continuar = confirm("¿Desea agregar nuevo pedido?")
         } else {
             continuar = confirm("¿Desea intentarlo nuevamente?")
@@ -51,10 +51,6 @@ const agregarCantidad = () => {
 const multiplicacion = (producto,cantidad) => {
     resultado = producto * cantidad
     return resultado
-}
-
-const mostrarImporte = () => {
-    alert("El importe es: " + resultado)
 }
 
 main(continuar)
