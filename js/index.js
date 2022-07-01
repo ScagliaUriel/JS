@@ -105,7 +105,7 @@ const seleccionarHora = (medico) => {
 
 medicos.push(new medicoTratante("Campos", "Medicina General", ["10:00 am", "11:00 am", "12:00 pm", "13:00 pm", "14:00 pm"]))
 medicos.push(new medicoTratante("Figueroa", "Medicina General", ["10:30 am", "11:30 am", "12:30 pm", "13:30 pm", "14:30 pm"]))
-medicos.push(new medicoTratante("Elgueta", "Pediatria", ["9:30 am", "10:30 am", "11:30 am", "12:00 pm", "13:00 pm", "14:00 pm"]))
+medicos.push(new medicoTratante("Scaglia", "Pediatria", ["9:30 am", "10:30 am", "11:30 am", "12:00 pm", "13:00 pm", "14:00 pm"]))
 medicos.push(new medicoTratante("Jara", "Pediatria", ["9:00 am", "10:00 am", "11:00 am", "12:30 pm", "13:30 pm", "14:30 pm"]))
 medicos.push(new medicoTratante("Ormazabal", "Traumatologia", ["9:30 am", "10:30 am", "11:30 am", "12:00 pm", "13:00 pm", "14:00 pm"]))
 medicos.push(new medicoTratante("Urrutia", "Traumatologia", ["9:00 am", "10:00 am", "11:00 am", "12:30 pm", "13:30 pm", "14:30 pm"]))
