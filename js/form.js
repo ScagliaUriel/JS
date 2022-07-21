@@ -1,6 +1,10 @@
 const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('#formulario input');
+var counter = 0
 
+if (!(localStorage.getItem("counter")!=null)){
+	localStorage.setItem("counter", 0);
+}
 
 const expresiones = {
 	usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
@@ -86,19 +90,25 @@ inputs.forEach((input) => {
 	input.addEventListener('blur', validarFormulario);
 });
 
-
-
-
-inputs.addEventListener('click', e => {
-	localStorage.setItem("input", JSON.stringify(input));
-});
-
+function save_data(){
+	contacto = {}
+	inputs.forEach((input) => {
+		key = input.name
+		value = input.value
+		// localStorage.setItem(key, value);
+		contacto[key] = value
+	});
+	counter = parseInt(localStorage.getItem("counter"))
+	localStorage.setItem(`contacto_numero_${(counter)}`, JSON.stringify(contacto));
+	localStorage.setItem("counter", counter+1);
+}
 
 formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
 
 	const terminos = document.getElementById('terminos');
 	if(campos.usuario && campos.nombre && campos.password && campos.correo && campos.telefono && terminos.checked ){
+		save_data() 
 		formulario.reset();
 
 		document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
