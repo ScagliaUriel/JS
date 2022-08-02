@@ -111,11 +111,12 @@ formulario.addEventListener("submit", (e) => {
 		save_data();
 		formulario.reset()
 
+		setTimeout(() => {
 		const Toast = Swal.mixin({
 			toast: true,
-			position: "center-end",
+			position: "top-end",
 			showConfirmButton: false,
-			timer: 3000,
+			timer: 2500,
 			timerProgressBar: true,
 			didOpen: (toast) => {
 			  toast.addEventListener("mouseenter", Swal.stopTimer)
@@ -126,7 +127,8 @@ formulario.addEventListener("submit", (e) => {
 		  Toast.fire({
 			icon: "success",
 			title: "Signed in successfully"
-		  })
+		  })}
+		  ,1000);
 
 		document.querySelectorAll(".formulario__grupo-correcto").forEach((icono) => {
 			icono.classList.remove("formulario__grupo-correcto");
