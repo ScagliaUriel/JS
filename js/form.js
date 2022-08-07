@@ -1,5 +1,8 @@
 const formulario = document.getElementById("formulario");
 const inputs = document.querySelectorAll("#formulario input");
+const btn = document.getElementById("formulario__btn");
+const serviceID = "service_5kqllmk";
+const templateID = "template_b0uk7pl";
 var counter = 0
 
 if (!(localStorage.getItem("counter")!=null)){
@@ -103,33 +106,39 @@ function save_data(){
 	localStorage.setItem("counter", counter+1);
 }
 
-formulario.addEventListener("submit", (e) => {
-	e.preventDefault();
+function popup(status) { setTimeout(() => {
+	const Toast = Swal.mixin({
+		toast: true,
+		position: "top-end",
+		showConfirmButton: false,
+		timer: 2500,
+		timerProgressBar: true,
+		didOpen: (toast) => {
+		toast.addEventListener("mouseenter", Swal.stopTimer)
+		toast.addEventListener("mouseleave", Swal.resumeTimer)
+		}
+	})
+	
+	Toast.fire({
+		icon: status ? "success" : "error",
+		title: status ? "Contacto registrado correctamente!" : "Ocurrió un error al registrarse",
+	})}
+	,10);
+}
 
+formulario.addEventListener("submit", function(event) {
+	event.preventDefault();
 	const terminos = document.getElementById("terminos");
 	if(campos.usuario && campos.nombre && campos.password && campos.correo && campos.telefono && terminos.checked ){
 		save_data();
-		formulario.reset()
-
-		setTimeout(() => {
-		const Toast = Swal.mixin({
-			toast: true,
-			position: "top-end",
-			showConfirmButton: false,
-			timer: 2500,
-			timerProgressBar: true,
-			didOpen: (toast) => {
-			  toast.addEventListener("mouseenter", Swal.stopTimer)
-			  toast.addEventListener("mouseleave", Swal.resumeTimer)
-			}
-		  })
-		  
-		  Toast.fire({
-			icon: "success",
-			title: "Signed in successfully"
-		  })}
-		  ,1000);
-
+		document.getElementById("formulario__mensaje").classList.remove("formulario__mensaje-activo");
+		emailjs.sendForm(serviceID, templateID, formulario)
+		.then(() => {
+			popup(true)
+			formulario.reset()
+		}, (err) => {
+			popup(false)
+		});
 		document.querySelectorAll(".formulario__grupo-correcto").forEach((icono) => {
 			icono.classList.remove("formulario__grupo-correcto");
 		})
