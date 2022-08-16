@@ -1,3 +1,23 @@
+class Formulario {
+    constructor(usuario, nombre, password, correo, telefono) { 
+        this.usuario = usuario;
+        this.nombre = nombre;
+        this.password = password;
+        this.correo = correo;
+        this.telefono = telefono;
+    }
+
+    camposToJSON() { 
+        let contacto = {}
+        contacto["usuario"] = this.usuario
+        contacto["nombre"] = this.nombre
+        contacto["password"] = this.password
+        contacto["correo"] = this.correo
+        contacto["telefono"] = this.telefono
+        return contacto
+    }
+}
+
 const formulario = document.getElementById("formulario");
 const inputs = document.querySelectorAll("#formulario input");
 const btn = document.getElementById("formulario__btn");
@@ -94,15 +114,11 @@ inputs.forEach((input) => {
 })
 
 function save_data(){
-	contacto = {}
-	inputs.forEach((input) => {
-		key = input.name
-		value = input.value
-		contacto[key] = value
-	});
-	counter = parseInt(localStorage.getItem("counter"))
-	localStorage.setItem(`contacto_numero_${(counter)}`, JSON.stringify(contacto));
-	localStorage.setItem("counter", counter+1);
+    let myForm = new Formulario(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value);
+    let contacto = myForm.camposToJSON()
+    counter = parseInt(localStorage.getItem("counter"))
+    localStorage.setItem(`contacto_numero_${(counter)}`, JSON.stringify(contacto));
+    localStorage.setItem("counter", counter+1);
 }
 
 function popup(status) { setTimeout(() => {
