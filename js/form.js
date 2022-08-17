@@ -1,33 +1,9 @@
-class Formulario {
-    constructor(usuario, nombre, password, correo, telefono) { 
-        this.usuario = usuario;
-        this.nombre = nombre;
-        this.password = password;
-        this.correo = correo;
-        this.telefono = telefono;
-    }
-
-    camposToJSON() { 
-        let contacto = {}
-        contacto["usuario"] = this.usuario
-        contacto["nombre"] = this.nombre
-        contacto["password"] = this.password
-        contacto["correo"] = this.correo
-        contacto["telefono"] = this.telefono
-        return contacto
-    }
-}
-
 const formulario = document.getElementById("formulario");
 const inputs = document.querySelectorAll("#formulario input");
 const btn = document.getElementById("formulario__btn");
 const serviceID = "service_5kqllmk";
 const templateID = "template_b0uk7pl";
 var counter = 0
-
-if (!(localStorage.getItem("counter")!=null)){
-	localStorage.setItem("counter", 0);
-}
 
 const expresiones = {
 	usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
@@ -45,27 +21,51 @@ const campos = {
 	telefono: false
 }
 
+class Formulario {
+	constructor(usuario, nombre, password, correo, telefono) {
+		this.usuario = usuario;
+		this.nombre = nombre;
+		this.password = password;
+		this.correo = correo;
+		this.telefono = telefono;
+	}
+
+	camposToJSON() {
+		let contacto = {}
+		contacto["usuario"] = this.usuario
+		contacto["nombre"] = this.nombre
+		contacto["password"] = this.password
+		contacto["correo"] = this.correo
+		contacto["telefono"] = this.telefono
+		return contacto
+	}
+}
+
+if (!(localStorage.getItem("counter") != null)) {
+	localStorage.setItem("counter", 0);
+}
+
 const validarFormulario = (e) => {
 	switch (e.target.name) {
 		case "usuario":
 			validarCampo(expresiones.usuario, e.target, "usuario");
-		break;
+			break;
 		case "nombre":
 			validarCampo(expresiones.nombre, e.target, "nombre");
-		break;
+			break;
 		case "password":
 			validarCampo(expresiones.password, e.target, "password");
 			validarPassword2();
-		break;
+			break;
 		case "password2":
 			validarPassword2();
-		break;
+			break;
 		case "correo":
 			validarCampo(expresiones.correo, e.target, "correo");
-		break;
+			break;
 		case "telefono":
 			validarCampo(expresiones.telefono, e.target, "telefono");
-		break;
+			break;
 	}
 }
 
@@ -91,7 +91,7 @@ const validarPassword2 = () => {
 	const inputPassword1 = document.getElementById("password");
 	const inputPassword2 = document.getElementById("password2");
 
-	if(inputPassword1.value !== inputPassword2.value){
+	if (inputPassword1.value !== inputPassword2.value) {
 		document.getElementById(`grupo__password2`).classList.add("formulario__grupo-incorrecto");
 		document.getElementById(`grupo__password2`).classList.remove("formulario__grupo-correcto");
 		document.querySelector(`#grupo__password2 i`).classList.add("fa-times-circle");
@@ -113,47 +113,48 @@ inputs.forEach((input) => {
 	input.addEventListener("blur", validarFormulario);
 })
 
-function save_data(){
-    let myForm = new Formulario(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value);
-    let contacto = myForm.camposToJSON()
-    counter = parseInt(localStorage.getItem("counter"))
-    localStorage.setItem(`contacto_numero_${(counter)}`, JSON.stringify(contacto));
-    localStorage.setItem("counter", counter+1);
+function save_data() {
+	let myForm = new Formulario(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value);
+	let contacto = myForm.camposToJSON()
+	counter = parseInt(localStorage.getItem("counter"))
+	localStorage.setItem(`contacto_numero_${(counter)}`, JSON.stringify(contacto));
+	localStorage.setItem("counter", counter + 1);
 }
 
-function popup(status) { setTimeout(() => {
-	const Toast = Swal.mixin({
-		toast: true,
-		position: "top-end",
-		showConfirmButton: false,
-		timer: 2500,
-		timerProgressBar: true,
-		didOpen: (toast) => {
-		toast.addEventListener("mouseenter", Swal.stopTimer)
-		toast.addEventListener("mouseleave", Swal.resumeTimer)
-		}
-	})
-	
-	Toast.fire({
-		icon: status ? "success" : "error",
-		title: status ? "Contacto registrado correctamente!" : "Ocurrió un error al registrarse",
-	})}
-	,10);
+function popup(status) {
+	setTimeout(() => {
+		const Toast = Swal.mixin({
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timer: 2500,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.addEventListener("mouseenter", Swal.stopTimer)
+				toast.addEventListener("mouseleave", Swal.resumeTimer)
+			}
+		})
+
+		Toast.fire({
+			icon: status ? "success" : "error",
+			title: status ? "Usuario registrado correctamente!" : "Ocurrió un error al registrarse",
+		})
+	}, 10);
 }
 
-formulario.addEventListener("submit", function(event) {
+formulario.addEventListener("submit", function (event) {
 	event.preventDefault();
 	const terminos = document.getElementById("terminos");
-	if(campos.usuario && campos.nombre && campos.password && campos.correo && campos.telefono && terminos.checked ){
+	if (campos.usuario && campos.nombre && campos.password && campos.correo && campos.telefono && terminos.checked) {
 		save_data();
 		document.getElementById("formulario__mensaje").classList.remove("formulario__mensaje-activo");
 		emailjs.sendForm(serviceID, templateID, formulario)
-		.then(() => {
-			popup(true)
-			formulario.reset()
-		}, (err) => {
-			popup(false)
-		});
+			.then(() => {
+				popup(true)
+				formulario.reset()
+			}, (err) => {
+				popup(false)
+			});
 		document.querySelectorAll(".formulario__grupo-correcto").forEach((icono) => {
 			icono.classList.remove("formulario__grupo-correcto");
 		})
