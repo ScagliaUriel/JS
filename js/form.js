@@ -113,34 +113,6 @@ if (!(localStorage.getItem("counter") != null)) {
 	localStorage.setItem("counter", 0)
 }
 
-// function save_data() {
-// 	let myForm = new Formulario(inputs[0].value, inputs[1].value, inputs[2].value, inputs[4].value, inputs[5].value);
-// 	let contacto = myForm.camposToJSON()
-// 	counter = parseInt(localStorage.getItem("counter"))
-// 	localStorage.setItem(`contacto_numero_${(counter)}`, JSON.stringify(contacto));
-// 	localStorage.setItem("counter", counter + 1);
-// }
-
-// function popup(status) {
-// 	setTimeout(() => {
-// 		const Toast = Swal.mixin({
-// 			toast: true,
-// 			position: "top-end",
-// 			showConfirmButton: false,
-// 			timer: 2500,
-// 			timerProgressBar: true,
-// 			didOpen: (toast) => {
-// 				toast.addEventListener("mouseenter", Swal.stopTimer)
-// 				toast.addEventListener("mouseleave", Swal.resumeTimer)
-// 			}
-// 		})
-// Toast.fire({
-// 	icon: status ? "success" : "error",
-// 	title: status ? "Usuario registrado correctamente!" : "Ocurrió un error al registrarse",
-// })
-// }, 10);
-// }
-
 const save_data = () => {
 	let myForm = new Formulario(inputs[0].value, inputs[1].value, inputs[2].value, inputs[4].value, inputs[5].value)
 	let contacto = myForm.camposToJSON()
